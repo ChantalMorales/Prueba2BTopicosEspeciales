@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "911477746597",
+    "project_id": "pruebatopicos-2a888",
+    "storage_bucket": "pruebatopicos-2a888.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:911477746597:android:18ca5becd5a5829834164c",
+        "android_client_info": {
+          "package_name": "com.example.myapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "911477746597-3volbs8kbsd8o1fi31rmkadesjb1h5nu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAQRHBBwC-zvMqVeDYnXmfxSBmDmeu0uQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "911477746597-3volbs8kbsd8o1fi31rmkadesjb1h5nu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
