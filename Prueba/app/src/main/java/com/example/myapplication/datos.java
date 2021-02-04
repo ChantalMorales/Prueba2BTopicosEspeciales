@@ -10,6 +10,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,7 +100,7 @@ public class datos extends AppCompatActivity {
     }
 
     private void deleteTask(String key) {
-
+        todoDb.child(key).removeValue();
     }
 
     private void showUpdateDialog(String key, ToDo item) {
@@ -129,5 +130,19 @@ public class datos extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId()==R.id.delete_all){
+            todoDb.removeValue();
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
