@@ -1,16 +1,20 @@
 package com.example.myapplication;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.myapplication.model.ToDo;
 import com.example.myapplication.viewholder.ToDoViewHolder;
@@ -82,5 +86,48 @@ public class datos extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         adapter.stopListening();
+    }
+
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        if (item.getTitle().equals("Actualizar")){
+            showUpdateDialog(adapter.getRef(item.getOrder()).getKey(),adapter.getItem(item.getOrder()));
+        } else if (item.getTitle().equals("Eliminar")) {
+            deleteTask(adapter.getRef(item.getOrder()).getKey());
+        }
+        return super.onContextItemSelected(item);
+    }
+
+    private void deleteTask(String key) {
+
+    }
+
+    private void showUpdateDialog(String key, ToDo item) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Actualizar");
+        builder.setMessage("Porfavor actualice los campos");
+        View update_layout = LayoutInflater.from(this).inflate(R.layout.custom_layout,null);
+        EditText edt_update_task = update_layout.findViewById(R.id.edit_update_task);
+        EditText edt_update_priority = update_layout.findViewById(R.id.edit_update_priority);
+        edt_update_task.setText(item.getTask());
+        edt_update_priority.setText(item.getPriority());
+        builder.setView(update_layout);
+        builder.setPositiveButton("Si", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String task = edt_update_task.getText().toString();
+                String priority = edt_update_priority.getText().toString();
+                ToDo todo = new ToDo(task,priority);
+                todoDb.child(key).setValue(todo);
+                Toast.makeText(datos.this, "Documento actualizado", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
     }
 }
