@@ -2,13 +2,17 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -26,6 +30,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void login(View view){
         mAuth.signInWithEmailAndPassword(email.getText().toString(), password.getText().toString());
+        if(mAuth.getCurrentUser() == null){
+            Toast.makeText(getApplicationContext(), "Usuario o contraseña incorrecto", Toast.LENGTH_LONG).show();
+        } else {
+            Intent i = new Intent(MainActivity.this,datos.class);
+            startActivity(i);
+        }
     }
 
 }
